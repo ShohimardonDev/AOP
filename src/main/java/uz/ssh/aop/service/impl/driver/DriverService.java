@@ -1,13 +1,14 @@
 package uz.ssh.aop.service.impl.driver;
 
+import uz.ssh.aop.model.dto.driver.DriverDto;
 import uz.ssh.aop.model.entity.Driver;
 
 import java.util.List;
 
 public interface DriverService {
 
-    Driver save();
+    DriverDto save(DriverDto dto);
 
-    List<Driver> list();
+    List<DriverDto> list();
 
 }

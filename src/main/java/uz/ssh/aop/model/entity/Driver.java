@@ -1,8 +1,12 @@
 package uz.ssh.aop.model.entity;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.envers.Audited;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -10,10 +14,15 @@ import java.time.LocalDateTime;
 @Entity
 @Audited
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@EntityListeners(AuditingEntityListener.class)
+
 public class Driver {
 
     @Id
-    @GeneratedValue(generator = "system-uuid")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "username")
@@ -47,4 +56,11 @@ public class Driver {
     private LocalDateTime terminated;
     @Column(name = "date_activated")
     private LocalDateTime activated;
+
+    @PostUpdate
+
+    public void beforeAnyUpdate() {
+        // not working for my case
+        System.out.println("this.username = " + this.username);
+    }
 }
